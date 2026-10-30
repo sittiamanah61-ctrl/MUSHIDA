@@ -1,0 +1,6 @@
+{
+  "name": "Workshop Desain Grafis Muslimah - Sitti Saadah Al Amanah",
+  "description": "Platform interaktif workshop desain grafis flyer & poster profesional Muslimah: Studio Nirmana, Tipografi, Palet Warna, Pre-test & Post-test, Penilaian Tugas Otomatis, Dashboard Instruktur, dan Penerbitan Sertifikat.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

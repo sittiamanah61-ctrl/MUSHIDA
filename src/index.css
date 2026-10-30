@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+.font-serif-islamic {
+  font-family: 'Amiri', serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+/* Islamic Geometric & Elegant Ornament Backgrounds */
+.bg-islamic-pattern {
+  background-color: #f8f6f0;
+  background-image: radial-gradient(#d49b42 0.75px, transparent 0.75px), radial-gradient(#143e2e 0.75px, #f8f6f0 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+.bg-emerald-gradient {
+  background: linear-gradient(135deg, #103426 0%, #174230 45%, #1e523c 100%);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #e3af58 0%, #d49b42 50%, #c08726 100%);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f6d285 0%, #d49b42 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtle glow effects */
+.gold-glow {
+  box-shadow: 0 0 25px rgba(227, 175, 88, 0.25);
+}
+
+.emerald-glow {
+  box-shadow: 0 0 25px rgba(23, 66, 48, 0.2);
+}
+
+/* Print styling for certificate */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-certificate, #printable-certificate * {
+    visibility: visible;
+  }
+  #printable-certificate {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
