@@ -396,7 +396,7 @@ export default function App() {
                 Workshop Desain Flyer Profesional Muslimah
               </p>
               <p className="text-[11px] text-emerald-300/70">
-                Instruktur: <strong>Sitti Saadah Al amanah, S.Kom</strong>
+                Pemateri: <strong>Sitti Saadah Al amanah, S.Kom</strong>
               </p>
             </div>
           </div>
@@ -411,7 +411,7 @@ export default function App() {
               onClick={() => setInstructorModalOpen(true)}
               className="text-[#E3AF58] hover:underline font-semibold"
             >
-              Login Instruktur (guru123)
+              Login Pemateri
             </button>
           </div>
         </div>

@@ -78,21 +78,17 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
       {/* Top Islamic & Design Decorative Animated Ribbon */}
       <div className="relative overflow-hidden bg-gradient-to-r from-[#0E2F23] via-[#174230] to-[#0E2F23] border-b border-[#D49B42]/20 py-1.5 px-4 text-xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          {/* Animated decorative design badges */}
+          {/* Static design badge without animations */}
           <div className="flex items-center space-x-3 text-[#E3AF58]">
-            <motion.div
-              animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="flex items-center space-x-1"
-            >
+            <div className="flex items-center space-x-1">
               <Sparkles className="w-3.5 h-3.5 text-[#E3AF58]" />
               <span className="font-semibold tracking-wide uppercase text-[11px]">
-                Workshop Desain Grafis Muslimah 2026
+                Desain Flyer Profesional
               </span>
-            </motion.div>
+            </div>
             <span className="text-[#E3AF58]/50">•</span>
             <span className="hidden sm:inline text-emerald-100/80">
-              Instruktur: <strong className="text-white">Sitti Saadah Al amanah, S.Kom</strong>
+              Pemateri: <strong className="text-white">Sitti Saadah Al amanah, S.Kom</strong>
             </span>
           </div>
 
@@ -116,27 +112,19 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
               }`}
             >
               <ShieldCheck className="w-3 h-3" />
-              <span>{isInstructorLoggedIn ? 'Dashboard Instruktur' : 'Login Instruktur (guru123)'}</span>
+              <span>{isInstructorLoggedIn ? 'Dashboard Pemateri' : 'Login Pemateri'}</span>
             </button>
           </div>
         </div>
 
-        {/* Floating animated design icons in header background */}
-        <div className="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
-          <motion.div
-            className="absolute left-[15%] top-1/2 -translate-y-1/2"
-            animate={{ y: [-4, 4, -4], rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-          >
+        {/* Static design icons in header background */}
+        <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
+          <div className="absolute left-[15%] top-1/2 -translate-y-1/2">
             <Compass className="w-6 h-6 text-[#E3AF58]" />
-          </motion.div>
-          <motion.div
-            className="absolute right-[25%] top-1/2 -translate-y-1/2"
-            animate={{ y: [4, -4, 4], rotate: [0, -12, 12, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          >
+          </div>
+          <div className="absolute right-[25%] top-1/2 -translate-y-1/2">
             <Shapes className="w-5 h-5 text-[#E3AF58]" />
-          </motion.div>
+          </div>
         </div>
       </div>
 

@@ -108,7 +108,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <div className="space-y-0.5">
                 <div className="text-[11px] font-semibold tracking-wider text-[#E3AF58] uppercase">
-                  Pemateri & Instruktur Utama
+                  Pemateri Utama
                 </div>
                 <div className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
                   <span>Sitti Saadah Al amanah, S.Kom</span>

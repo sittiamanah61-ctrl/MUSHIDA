@@ -59,7 +59,7 @@ export const InstructorDashboard: React.FC<InstructorDashboardProps> = ({
       setPinInput('');
       setLoginError('');
     } else {
-      setLoginError('PIN salah! Silakan gunakan PIN guru123.');
+      setLoginError('PIN yang Anda masukkan salah. Silakan coba kembali.');
     }
   };
 
@@ -169,7 +169,7 @@ export const InstructorDashboard: React.FC<InstructorDashboardProps> = ({
             </div>
             <div>
               <h3 className="font-bold text-base sm:text-lg flex items-center gap-2">
-                Dashboard Instruktur
+                Dashboard Pemateri
                 <span className="text-xs bg-[#E3AF58] text-[#143E2E] px-2 py-0.5 rounded-full font-bold">
                   Sitti Saadah Al amanah, S.Kom
                 </span>
@@ -210,10 +210,10 @@ export const InstructorDashboard: React.FC<InstructorDashboardProps> = ({
 
               <div className="space-y-1">
                 <h4 className="text-xl font-bold text-slate-800">
-                  Verifikasi Akses Instruktur
+                  Verifikasi Akses Pemateri
                 </h4>
                 <p className="text-xs text-slate-500">
-                  Masukkan PIN khusus instruktur untuk mengelola data nilai dan sertifikat peserta.
+                  Masukkan PIN khusus untuk mengelola data nilai dan sertifikat peserta.
                 </p>
               </div>
 
@@ -221,7 +221,7 @@ export const InstructorDashboard: React.FC<InstructorDashboardProps> = ({
                 <div>
                   <input
                     type="password"
-                    placeholder="Masukkan PIN (guru123)"
+                    placeholder="Masukkan PIN"
                     value={pinInput}
                     onChange={(e) => setPinInput(e.target.value)}
                     className="w-full text-center tracking-widest text-lg font-bold px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#143E2E] focus:outline-none"
@@ -239,10 +239,6 @@ export const InstructorDashboard: React.FC<InstructorDashboardProps> = ({
                   Masuk ke Dashboard
                 </button>
               </form>
-
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 text-left">
-                <strong>Catatan Akses:</strong> PIN bawaan sesuai permintaan adalah <code className="bg-amber-100 px-1 py-0.5 rounded font-mono font-bold">guru123</code>.
-              </div>
             </div>
           ) : (
             /* Dashboard View */
