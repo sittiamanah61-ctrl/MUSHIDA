@@ -20,7 +20,19 @@ import {
   Heart,
   BookOpen,
   MapPin,
-  ExternalLink
+  ExternalLink,
+  Grid,
+  Scale,
+  Maximize2,
+  Minimize2,
+  Navigation,
+  AlertTriangle,
+  Shapes,
+  Type,
+  RotateCw,
+  HelpCircle,
+  Compass,
+  ScanLine
 } from 'lucide-react';
 import {
   HSLColor,
@@ -60,6 +72,17 @@ export const ColorPaletteStudio: React.FC<ColorPaletteStudioProps> = ({
   const [copiedAll, setCopiedAll] = useState(false);
   const [appliedFeedback, setAppliedFeedback] = useState(false);
   const [activeMockupTab, setActiveMockupTab] = useState<'ajakan_gabung' | 'kajian_akbar' | 'feed_instagram'>('ajakan_gabung');
+
+  // Interactive Design Principles State
+  const [balanceMode, setBalanceMode] = useState<'asymmetrical' | 'symmetrical' | 'radial'>('asymmetrical');
+  const [hierarchyMode, setHierarchyMode] = useState<'standard' | 'flat' | 'flow'>('standard');
+  const [contrastSimMode, setContrastSimMode] = useState<'normal' | 'low' | 'high'>('normal');
+  const [whiteSpaceMode, setWhiteSpaceMode] = useState<'compact' | 'optimal' | 'spacious'>('optimal');
+  const [showSwissGrid, setShowSwissGrid] = useState<boolean>(false);
+  const [showRuleOfThirds, setShowRuleOfThirds] = useState<boolean>(false);
+  const [showSafeMargins, setShowSafeMargins] = useState<boolean>(false);
+  const [graphicMotif, setGraphicMotif] = useState<'swiss_original' | 'khatam_star' | 'dynamic_rhythm' | 'kinetic_rotator'>('swiss_original');
+  const [activePrincipleControlTab, setActivePrincipleControlTab] = useState<'keseimbangan' | 'hierarki' | 'kontras' | 'ruang' | 'kisi' | 'irama'>('keseimbangan');
 
   const posterSectionRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -657,13 +680,23 @@ export const ColorPaletteStudio: React.FC<ColorPaletteStudioProps> = ({
         </div>
       )}
 
-      {/* BOTTOM SECTION: PENERAPAN OTOMATIS PALET PADA MOCKUP DESAIN KOMUNIKASI VISUAL */}
-      <section ref={posterSectionRef} className="space-y-4 pt-4">
+      {/* BOTTOM SECTION: PENERAPAN OTOMATIS PALET & EKSPLORASI INTERAKTIF PRINSIP DESAIN PADA FLYER */}
+      <section ref={posterSectionRef} className="space-y-5 pt-4">
         {/* Title Bar matching reference screenshot */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
-          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
-            PENERAPAN OTOMATIS PALET PADA MOCKUP DESAIN KOMUNIKASI VISUAL
-          </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+          <div>
+            <div className="flex items-center space-x-2">
+              <span className="p-1.5 rounded-lg bg-[#143E2E] text-[#E3AF58]">
+                <Sparkles className="w-4 h-4" />
+              </span>
+              <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900">
+                PENERAPAN OTOMATIS PALET PADA MOCKUP DESAIN KOMUNIKASI VISUAL
+              </h3>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Uji coba langsung kaidah <strong>Keseimbangan, Hierarki Visual, Kontras, White Space, Grid Swiss,</strong> dan <strong>Irama Bentuk</strong> pada flyer.
+            </p>
+          </div>
 
           <div className="flex items-center space-x-3">
             {/* View Mode Toggle: Muslimat Hidayatullah vs Reference DKV */}
@@ -696,201 +729,618 @@ export const ColorPaletteStudio: React.FC<ColorPaletteStudioProps> = ({
           </div>
         </div>
 
-        {/* The Two Poster Cards Grid matching the uploaded image */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-          {/* Card 1 (Left): Swiss Grid Poster with Geometric Nirmana Artwork */}
-          <div
-            className="rounded-[28px] p-6 sm:p-8 shadow-md border transition-all duration-300 flex flex-col justify-between min-h-[580px] relative overflow-hidden"
-            style={{
-              backgroundColor: swatches[1], // Swatch 2 (#FFEBE8)
-              borderColor: `${swatches[0]}20`
-            }}
-          >
-            {/* Top Text & Divider */}
-            <div>
-              <div
-                className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold"
-                style={{ color: swatches[0] }}
-              >
-                {activeMockupTab === 'ajakan_gabung'
-                  ? 'DAKWAH MUSLIMAT HIDAYATULLAH 2026 • SWISS GRID'
-                  : 'DKV EXHIBITION 2026 • SWISS GRID'}
-              </div>
-
-              {/* Thin Divider Line */}
-              <div
-                className="h-[1px] w-full my-3 opacity-30"
-                style={{ backgroundColor: swatches[0] }}
-              />
-
-              {/* Big Bold Headline */}
-              <h1
-                className="text-3xl sm:text-4xl lg:text-[40px] font-black tracking-tight leading-[1.05] uppercase mt-4"
-                style={{ color: swatches[0] }}
-              >
-                {activeMockupTab === 'ajakan_gabung' ? (
-                  <>
-                    UKHUWAH &<br />
-                    KELUARGA SAKINAH
-                  </>
-                ) : (
-                  <>
-                    RHYTHM &<br />
-                    CHROMATICS
-                  </>
-                )}
-              </h1>
-
-              {/* Subtitle in Swatch 5 Color */}
-              <p
-                className="text-xs sm:text-sm font-medium mt-3.5 leading-relaxed max-w-sm"
-                style={{ color: swatches[4] }}
-              >
-                {activeMockupTab === 'ajakan_gabung'
-                  ? "Studi harmoni warna dakwah dan ajakan silaturahim akbar pengurus dan kader Muslimat Hidayatullah."
-                  : 'Studi harmoni warna komplementer dan gubahan nirmana dwimatra siswa kelas 10 SMK DKV.'}
-              </p>
+        {/* INTERACTIVE DESIGN PRINCIPLES CONTROLLER TOOLBAR */}
+        <div className="bg-slate-900 text-white rounded-2xl p-4 sm:p-5 border border-slate-800 shadow-xl space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+            <div className="flex items-center space-x-2">
+              <Sliders className="w-4 h-4 text-[#E3AF58]" />
+              <span className="font-bold text-xs uppercase tracking-wider text-[#E3AF58]">
+                Panel Interaktif Prinsip Desain Grafis Flyer
+              </span>
             </div>
 
-            {/* Center Graphic: Overlapping Golden Circle & Mint Rounded Square matching image */}
-            <div className="my-auto py-8 flex items-center justify-center">
-              <div className="relative w-44 h-44 flex items-center justify-center">
-                {/* Yellow/Gold Circle (Swatch 3) */}
-                <div
-                  className="w-28 h-28 rounded-full absolute left-2 top-6 shadow-md transition-all duration-300"
-                  style={{ backgroundColor: swatches[2] }}
-                />
-                {/* Mint/Light Rounded Square (Swatch 4) overlapping */}
-                <div
-                  className="w-28 h-28 rounded-2xl absolute right-2 bottom-6 shadow-xl transition-all duration-300"
-                  style={{ backgroundColor: swatches[3] }}
-                />
+            {/* Quick Presets for Instant Learning */}
+            <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+              <span className="text-slate-400 font-medium mr-1">Preset Cepat:</span>
+              <button
+                onClick={() => {
+                  setBalanceMode('symmetrical');
+                  setHierarchyMode('standard');
+                  setContrastSimMode('high');
+                  setWhiteSpaceMode('optimal');
+                  setGraphicMotif('khatam_star');
+                  setShowSwissGrid(false);
+                  setShowRuleOfThirds(false);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-200 border border-emerald-700/60 font-semibold transition"
+              >
+                🌟 Muslimah Harmonis
+              </button>
+
+              <button
+                onClick={() => {
+                  setBalanceMode('asymmetrical');
+                  setHierarchyMode('flow');
+                  setContrastSimMode('normal');
+                  setWhiteSpaceMode('optimal');
+                  setGraphicMotif('swiss_original');
+                  setShowSwissGrid(true);
+                  setShowRuleOfThirds(false);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 text-amber-200 border border-amber-700/60 font-semibold transition"
+              >
+                📐 Swiss Grid + Alur Baca
+              </button>
+
+              <button
+                onClick={() => {
+                  setBalanceMode('asymmetrical');
+                  setHierarchyMode('flat');
+                  setContrastSimMode('low');
+                  setWhiteSpaceMode('compact');
+                  setShowSwissGrid(false);
+                  setShowRuleOfThirds(false);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-red-950 hover:bg-red-900 text-red-200 border border-red-700/60 font-semibold transition"
+              >
+                ⚠️ Uji Anti-Pola (Desain Buruk)
+              </button>
+            </div>
+          </div>
+
+          {/* Interactive Principle Controls Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+            {/* 1. Keseimbangan (Balance) */}
+            <div className="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 space-y-1.5">
+              <div className="flex items-center justify-between text-slate-300 font-semibold text-[11px]">
+                <span className="flex items-center gap-1">
+                  <Scale className="w-3 h-3 text-[#E3AF58]" /> Keseimbangan
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-1">
+                {(['asymmetrical', 'symmetrical', 'radial'] as const).map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => setBalanceMode(m)}
+                    className={`py-1 px-1.5 rounded text-[10px] font-medium text-left transition ${
+                      balanceMode === m
+                        ? 'bg-[#E3AF58] text-[#143E2E] font-bold shadow-sm'
+                        : 'text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    {m === 'asymmetrical' ? 'Asimetris Dinamis' : m === 'symmetrical' ? 'Simetris Seimbang' : 'Radial Kubah'}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Bottom Footer Section */}
-            <div>
-              <div
-                className="h-[1px] w-full mb-4 opacity-30"
-                style={{ backgroundColor: swatches[0] }}
-              />
-
-              <div className="flex items-end justify-between">
-                <div>
-                  <div
-                    className="text-[9px] font-mono tracking-widest uppercase font-bold"
-                    style={{ color: `${swatches[0]}99` }}
+            {/* 2. Hierarki Visual (Emphasis) */}
+            <div className="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 space-y-1.5">
+              <div className="flex items-center justify-between text-slate-300 font-semibold text-[11px]">
+                <span className="flex items-center gap-1">
+                  <Type className="w-3 h-3 text-[#E3AF58]" /> Hierarki Teks
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-1">
+                {(['standard', 'flat', 'flow'] as const).map((h) => (
+                  <button
+                    key={h}
+                    onClick={() => setHierarchyMode(h)}
+                    className={`py-1 px-1.5 rounded text-[10px] font-medium text-left transition ${
+                      hierarchyMode === h
+                        ? 'bg-[#E3AF58] text-[#143E2E] font-bold shadow-sm'
+                        : 'text-slate-300 hover:bg-slate-700'
+                    }`}
                   >
-                    {activeMockupTab === 'ajakan_gabung' ? 'DIVISI MULTIMEDIA' : 'STUDIO DKV'}
-                  </div>
-                  <div
-                    className="text-xs sm:text-sm font-bold tracking-tight"
-                    style={{ color: swatches[4] }}
-                  >
-                    {activeMockupTab === 'ajakan_gabung' ? 'Muslimat Hidayatullah' : 'Galeri Seni Visual'}
-                  </div>
-                </div>
+                    {h === 'standard' ? 'Hierarki Ideal' : h === 'flat' ? 'Tanpa Hierarki (Rata)' : 'Alur Baca 1-2-3-4'}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-                {/* Pill Button in Swatch 3 Color matching image */}
+            {/* 3. Kontras (Contrast) */}
+            <div className="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 space-y-1.5">
+              <div className="flex items-center justify-between text-slate-300 font-semibold text-[11px]">
+                <span className="flex items-center gap-1">
+                  <Eye className="w-3 h-3 text-[#E3AF58]" /> Uji Kontras
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-1">
+                {(['normal', 'low', 'high'] as const).map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setContrastSimMode(c)}
+                    className={`py-1 px-1.5 rounded text-[10px] font-medium text-left transition ${
+                      contrastSimMode === c
+                        ? 'bg-[#E3AF58] text-[#143E2E] font-bold shadow-sm'
+                        : 'text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    {c === 'normal' ? 'Kontras Asli' : c === 'low' ? '⚠️ Rendah / Faded' : 'Tinggi (WCAG AAA)'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 4. White Space (Ruang Bernafas) */}
+            <div className="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 space-y-1.5">
+              <div className="flex items-center justify-between text-slate-300 font-semibold text-[11px]">
+                <span className="flex items-center gap-1">
+                  <Maximize2 className="w-3 h-3 text-[#E3AF58]" /> White Space
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-1">
+                {(['compact', 'optimal', 'spacious'] as const).map((w) => (
+                  <button
+                    key={w}
+                    onClick={() => setWhiteSpaceMode(w)}
+                    className={`py-1 px-1.5 rounded text-[10px] font-medium text-left transition ${
+                      whiteSpaceMode === w
+                        ? 'bg-[#E3AF58] text-[#143E2E] font-bold shadow-sm'
+                        : 'text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    {w === 'compact' ? 'Padat / Sesak' : w === 'optimal' ? 'Seimbang (28px)' : 'Lapang / Lega'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 5. Gubahan Nirmana & Irama (Motif) */}
+            <div className="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 space-y-1.5">
+              <div className="flex items-center justify-between text-slate-300 font-semibold text-[11px]">
+                <span className="flex items-center gap-1">
+                  <Shapes className="w-3 h-3 text-[#E3AF58]" /> Bentuk Nirmana
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-1">
+                {(['swiss_original', 'khatam_star', 'dynamic_rhythm', 'kinetic_rotator'] as const).map((g) => (
+                  <button
+                    key={g}
+                    onClick={() => setGraphicMotif(g)}
+                    className={`py-1 px-1.5 rounded text-[10px] font-medium text-left transition ${
+                      graphicMotif === g
+                        ? 'bg-[#E3AF58] text-[#143E2E] font-bold shadow-sm'
+                        : 'text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    {g === 'swiss_original' ? 'Swiss Lingkaran-Kotak' : g === 'khatam_star' ? 'Bintang Khatam 8' : g === 'dynamic_rhythm' ? 'Irama Gelombang' : 'Kinetik Berputar'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 6. Garis Kisi Panduan (Overlays) */}
+            <div className="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 space-y-1.5">
+              <div className="flex items-center justify-between text-slate-300 font-semibold text-[11px]">
+                <span className="flex items-center gap-1">
+                  <Grid className="w-3 h-3 text-[#E3AF58]" /> Panduan Grid
+                </span>
+              </div>
+              <div className="space-y-1">
                 <button
-                  className="px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm transition hover:brightness-105 active:scale-95"
-                  style={{
-                    backgroundColor: swatches[2],
-                    color: hexToHsl(swatches[2]).l > 60 ? '#1A202C' : '#FFFFFF'
-                  }}
+                  onClick={() => setShowSwissGrid(!showSwissGrid)}
+                  className={`w-full py-1 px-1.5 rounded text-[10px] font-medium text-left transition flex items-center justify-between ${
+                    showSwissGrid ? 'bg-cyan-900 text-cyan-200 border border-cyan-500 font-bold' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
                 >
-                  {activeMockupTab === 'ajakan_gabung' ? 'Daftar Kajian' : 'Tiket Pameran'}
+                  <span>Kisi 12-Kolom</span>
+                  <span>{showSwissGrid ? 'ON' : 'OFF'}</span>
+                </button>
+
+                <button
+                  onClick={() => setShowRuleOfThirds(!showRuleOfThirds)}
+                  className={`w-full py-1 px-1.5 rounded text-[10px] font-medium text-left transition flex items-center justify-between ${
+                    showRuleOfThirds ? 'bg-amber-900 text-amber-200 border border-amber-500 font-bold' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <span>Aturan Sepertiga</span>
+                  <span>{showRuleOfThirds ? 'ON' : 'OFF'}</span>
+                </button>
+
+                <button
+                  onClick={() => setShowSafeMargins(!showSafeMargins)}
+                  className={`w-full py-1 px-1.5 rounded text-[10px] font-medium text-left transition flex items-center justify-between ${
+                    showSafeMargins ? 'bg-emerald-900 text-emerald-200 border border-emerald-500 font-bold' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <span>Batas Aman 24px</span>
+                  <span>{showSafeMargins ? 'ON' : 'OFF'}</span>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Card 2 (Right): Brand Identity System with 60-30-10 distribution card */}
-          <div
-            className="rounded-[28px] p-6 sm:p-8 shadow-md border transition-all duration-300 flex flex-col justify-between min-h-[580px] text-white relative overflow-hidden"
-            style={{
-              backgroundColor: swatches[0], // Swatch 1 (#B72818)
-              borderColor: `${swatches[0]}40`
-            }}
-          >
-            {/* Top Brand Tag */}
-            <div>
-              <div className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold text-white/80">
-                BRAND IDENTITY SYSTEM
-              </div>
-
-              {/* Big Headline */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-black tracking-tight leading-[1.05] uppercase mt-4 text-white">
-                {activeMockupTab === 'ajakan_gabung' ? (
-                  <>
-                    <span className="border-b-4 border-white/80 pb-0.5">M</span>USLIMAT MEDIA
-                    <br />
-                    CREATIVE
-                  </>
-                ) : (
-                  <>
-                    <span className="border-b-4 border-white/80 pb-0.5">Q</span>UEENTHINGS MEDIA
-                    <br />
-                    CREATIVE
-                  </>
-                )}
-              </h2>
-
-              {/* 5 Swatch Chips Row matching screenshot */}
-              <div className="flex items-center space-x-2 mt-5">
-                {/* Chip 1 (Hollow/Transparent border) */}
-                <div
-                  className="w-7 h-7 rounded-lg border-2 border-white/40 shadow-sm"
-                  style={{ backgroundColor: `${swatches[0]}00` }}
-                  title={`Swatch 1: ${swatches[0]}`}
-                />
-                {/* Chip 2 */}
-                <div
-                  className="w-7 h-7 rounded-lg shadow-sm"
-                  style={{ backgroundColor: swatches[1] }}
-                  title={`Swatch 2: ${swatches[1]}`}
-                />
-                {/* Chip 3 */}
-                <div
-                  className="w-7 h-7 rounded-lg shadow-sm"
-                  style={{ backgroundColor: swatches[2] }}
-                  title={`Swatch 3: ${swatches[2]}`}
-                />
-                {/* Chip 4 */}
-                <div
-                  className="w-7 h-7 rounded-lg shadow-sm"
-                  style={{ backgroundColor: swatches[3] }}
-                  title={`Swatch 4: ${swatches[3]}`}
-                />
-                {/* Chip 5 */}
-                <div
-                  className="w-7 h-7 rounded-lg shadow-sm"
-                  style={{ backgroundColor: swatches[4] }}
-                  title={`Swatch 5: ${swatches[4]}`}
-                />
-              </div>
-            </div>
-
-            {/* Middle Container: Kaidah Distribusi 60-30-10 matching reference */}
-            <div className="my-auto py-6">
-              <div className="p-5 rounded-2xl bg-black/25 backdrop-blur-md border border-white/10 space-y-2">
-                <div className="font-bold text-xs sm:text-sm text-white">
-                  Kaidah Distribusi 60–30–10:
+          {/* Real-time Pedagogical Feedback & Diagnostic Banner */}
+          <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-xs flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+            <div className="flex items-start space-x-2">
+              <Compass className="w-4 h-4 text-[#E3AF58] shrink-0 mt-0.5" />
+              <div className="space-y-0.5">
+                <div className="font-bold text-slate-200 flex items-center gap-2">
+                  <span>Diagnostik Prinsip Aktif:</span>
+                  <span className="text-[#E3AF58] uppercase font-mono text-[11px]">
+                    {balanceMode === 'asymmetrical' ? 'Asimetris Dinamis' : balanceMode === 'symmetrical' ? 'Simetris Formal' : 'Radial Kubah'} •{' '}
+                    {hierarchyMode === 'standard' ? 'Hierarki Skala 2.8x' : hierarchyMode === 'flat' ? 'Anti-Pola Tanpa Hierarki' : 'Scanning Path Z-Pattern'} •{' '}
+                    {contrastSimMode === 'normal' ? 'Kontras Normal' : contrastSimMode === 'low' ? 'Kontras Buruk' : 'Kontras Ekstra'}
+                  </span>
                 </div>
-                <p className="text-xs text-white/90 leading-relaxed font-light">
-                  Warna primer ({swatches[0]}) membentuk 60% kanvas dasar, warna pendukung ({swatches[2]}) memberikan 30% struktur, dan aksen ({swatches[4]}) memandu 10% fokus mata pemirsa.
+                <p className="text-[11px] text-slate-400">
+                  {hierarchyMode === 'flat'
+                    ? '⚠️ Perhatikan: Tanpa hierarki ukuran, mata pemirsa membutuhkan waktu 3x lebih lama untuk menemukan inti pesan.'
+                    : contrastSimMode === 'low'
+                    ? '⚠️ Perhatikan: Kontras rendah membuat teks tidak terbaca jelas saat flyer dipasang di ruang berpenerangan redup.'
+                    : balanceMode === 'asymmetrical'
+                    ? 'Prinsip Keseimbangan Asimetris memberikan kesan kontemporer dan dinamis, dipadukan dengan Swiss Grid untuk menjaga kerapian.'
+                    : 'Prinsip Keseimbangan Simetris memberikan kesan khidmat, stabil, dan agung yang sangat sesuai untuk publikasi dakwah formal.'}
                 </p>
               </div>
             </div>
 
-            {/* Bottom Footer Info Line matching screenshot */}
-            <div className="pt-4 text-[10px] sm:text-[11px] font-mono tracking-widest text-white/80 uppercase">
-              {activeMockupTab === 'ajakan_gabung'
-                ? 'Muslimat Hidayatullah Kompetensi Keahlian Desain Grafis • 2026/2027'
-                : 'SMK Negeri Kompetensi Keahlian DKV • 2026/2027'}
+            <div className="text-right shrink-0">
+              <span className="text-[11px] text-slate-400 block">Rasio Kontras Terhitung:</span>
+              <span
+                className={`font-mono font-bold text-xs px-2 py-0.5 rounded ${
+                  contrastSimMode === 'low'
+                    ? 'bg-red-900/80 text-red-200'
+                    : 'bg-emerald-900/80 text-emerald-200'
+                }`}
+              >
+                {contrastSimMode === 'low' ? '1.7 : 1 (GAGAL WCAG)' : `${textContrast.toFixed(1)} : 1 (LULUS WCAG)`}
+              </span>
             </div>
           </div>
         </div>
+
+        {/* Dynamic Color Computation for Simulated Contrast */}
+        {(() => {
+          const simulatedPrimary =
+            contrastSimMode === 'low'
+              ? '#D8C2BD' // Faded low-contrast text on cream background
+              : contrastSimMode === 'high'
+              ? '#0A1E14' // Deep rich black-green
+              : swatches[0];
+
+          const simulatedSubtitle =
+            contrastSimMode === 'low' ? '#C9B3AC' : swatches[4];
+
+          const paddingClass =
+            whiteSpaceMode === 'compact'
+              ? 'p-3 sm:p-5'
+              : whiteSpaceMode === 'spacious'
+              ? 'p-8 sm:p-12'
+              : 'p-6 sm:p-8';
+
+          return (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* Card 1 (Left): Swiss Grid Poster with Dynamic Design Principles */}
+              <div
+                className={`rounded-[28px] ${paddingClass} shadow-md border transition-all duration-300 flex flex-col justify-between min-h-[590px] relative overflow-hidden`}
+                style={{
+                  backgroundColor: swatches[1], // Swatch 2 (#FFEBE8)
+                  borderColor: `${simulatedPrimary}25`
+                }}
+              >
+                {/* 1. OVERLAY: SWISS 12-COLUMN GRID */}
+                {showSwissGrid && (
+                  <div className="absolute inset-0 pointer-events-none z-30 flex justify-between px-6 opacity-30">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div key={i} className="h-full w-[6%] bg-cyan-500/20 border-x border-cyan-500/40" />
+                    ))}
+                  </div>
+                )}
+
+                {/* 2. OVERLAY: RULE OF THIRDS (ATURAN SEPERTIGA) */}
+                {showRuleOfThirds && (
+                  <div className="absolute inset-0 pointer-events-none z-30 grid grid-cols-3 grid-rows-3 opacity-60">
+                    {Array.from({ length: 9 }).map((_, i) => (
+                      <div key={i} className="border border-amber-500/60 relative">
+                        {/* Intersection circles */}
+                        {(i === 0 || i === 1 || i === 3 || i === 4) && (
+                          <div className="absolute -bottom-2 -right-2 w-4 h-4 rounded-full bg-amber-400 border-2 border-white shadow animate-ping" />
+                        )}
+                        {(i === 0 || i === 1 || i === 3 || i === 4) && (
+                          <div className="absolute -bottom-2 -right-2 w-4 h-4 rounded-full bg-amber-500 border-2 border-white shadow" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* 3. OVERLAY: SAFE MARGINS */}
+                {showSafeMargins && (
+                  <div className="absolute inset-6 border-2 border-dashed border-emerald-500/70 pointer-events-none z-30 rounded-2xl flex items-start justify-end p-2">
+                    <span className="text-[9px] font-mono font-bold bg-emerald-600 text-white px-2 py-0.5 rounded shadow">
+                      Margin Aman 24px
+                    </span>
+                  </div>
+                )}
+
+                {/* 4. OVERLAY: RADIAL GLOW if in radial balance mode */}
+                {balanceMode === 'radial' && (
+                  <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-25">
+                    <div className="w-80 h-80 rounded-full border border-dashed border-slate-500 animate-spin" style={{ animationDuration: '30s' }} />
+                    <div className="w-56 h-56 rounded-full border border-slate-400 absolute" />
+                  </div>
+                )}
+
+                {/* Top Text & Divider */}
+                <div className={`relative z-10 ${balanceMode === 'symmetrical' ? 'text-center' : 'text-left'}`}>
+                  {/* Step 1 Badge if in flow mode */}
+                  {hierarchyMode === 'flow' && (
+                    <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold shadow mb-2 animate-bounce">
+                      <span>1️⃣</span>
+                      <span>Focal Point (Hirarki Utama)</span>
+                    </div>
+                  )}
+
+                  <div
+                    className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold"
+                    style={{ color: simulatedPrimary }}
+                  >
+                    {activeMockupTab === 'ajakan_gabung'
+                      ? 'DAKWAH MUSLIMAT HIDAYATULLAH 2026 • SWISS GRID'
+                      : 'DKV EXHIBITION 2026 • SWISS GRID'}
+                  </div>
+
+                  {/* Thin Divider Line */}
+                  <div
+                    className={`h-[1px] my-3 opacity-30 ${balanceMode === 'symmetrical' ? 'w-24 mx-auto' : 'w-full'}`}
+                    style={{ backgroundColor: simulatedPrimary }}
+                  />
+
+                  {/* Big Headline (Adjusted by hierarchyMode and balanceMode) */}
+                  <h1
+                    style={{ color: simulatedPrimary }}
+                    className={`transition-all duration-300 uppercase leading-[1.05] ${
+                      hierarchyMode === 'flat'
+                        ? 'text-sm font-normal normal-case opacity-90 my-3' // Anti-pattern flat
+                        : 'text-3xl sm:text-4xl lg:text-[40px] font-black tracking-tight mt-3'
+                    }`}
+                  >
+                    {activeMockupTab === 'ajakan_gabung' ? (
+                      <>
+                        UKHUWAH &<br />
+                        KELUARGA SAKINAH
+                      </>
+                    ) : (
+                      <>
+                        RHYTHM &<br />
+                        CHROMATICS
+                      </>
+                    )}
+                  </h1>
+
+                  {/* Subtitle in Swatch 5 Color */}
+                  {hierarchyMode === 'flow' && (
+                    <div className="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold shadow my-1">
+                      <span>2️⃣</span>
+                      <span>Sub-tema / Penjelas</span>
+                    </div>
+                  )}
+
+                  <p
+                    className={`transition-all duration-300 leading-relaxed ${
+                      balanceMode === 'symmetrical' ? 'mx-auto max-w-md' : 'max-w-sm'
+                    } ${hierarchyMode === 'flat' ? 'text-sm font-normal' : 'text-xs sm:text-sm font-medium mt-3.5'}`}
+                    style={{ color: simulatedSubtitle }}
+                  >
+                    {activeMockupTab === 'ajakan_gabung'
+                      ? "Studi harmoni warna dakwah dan ajakan silaturahim akbar pengurus dan kader Muslimat Hidayatullah."
+                      : 'Studi harmoni warna komplementer dan gubahan nirmana dwimatra siswa kelas 10 SMK DKV.'}
+                  </p>
+                </div>
+
+                {/* Center Graphic: Controlled by graphicMotif */}
+                <div className={`my-auto py-6 flex items-center relative z-10 ${
+                  balanceMode === 'symmetrical' ? 'justify-center' : 'justify-center sm:justify-end pr-4'
+                }`}>
+                  {hierarchyMode === 'flow' && (
+                    <div className="absolute top-2 left-6 z-20 flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-600 text-white text-[10px] font-bold shadow">
+                      <span>3️⃣</span>
+                      <span>Karya Seni Nirmana</span>
+                    </div>
+                  )}
+
+                  {/* Motif 1: Original Swiss Circle & Rounded Square */}
+                  {graphicMotif === 'swiss_original' && (
+                    <div className="relative w-44 h-44 flex items-center justify-center">
+                      <div
+                        className="w-28 h-28 rounded-full absolute left-2 top-6 shadow-md transition-all duration-300"
+                        style={{ backgroundColor: swatches[2] }}
+                      />
+                      <div
+                        className="w-28 h-28 rounded-2xl absolute right-2 bottom-6 shadow-xl transition-all duration-300"
+                        style={{ backgroundColor: swatches[3] }}
+                      />
+                    </div>
+                  )}
+
+                  {/* Motif 2: Islamic Khatam Star 8-Pointed */}
+                  {graphicMotif === 'khatam_star' && (
+                    <div className="relative w-44 h-44 flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" className="w-36 h-36 drop-shadow-lg">
+                        {/* Two overlapping rotated squares creating 8-pointed star */}
+                        <rect x="20" y="20" width="60" height="60" rx="4" fill={swatches[2]} />
+                        <rect x="20" y="20" width="60" height="60" rx="4" fill={swatches[3]} fillOpacity="0.85" transform="rotate(45 50 50)" />
+                        <circle cx="50" cy="50" r="16" fill={swatches[0]} />
+                        <circle cx="50" cy="50" r="8" fill={swatches[2]} />
+                      </svg>
+                    </div>
+                  )}
+
+                  {/* Motif 3: Dynamic Rhythm Waves */}
+                  {graphicMotif === 'dynamic_rhythm' && (
+                    <div className="relative w-48 h-36 flex flex-col justify-center space-y-2">
+                      <div className="h-6 rounded-full shadow-md" style={{ backgroundColor: swatches[2], width: '80%' }} />
+                      <div className="h-8 rounded-full shadow-md ml-auto" style={{ backgroundColor: swatches[3], width: '90%' }} />
+                      <div className="h-5 rounded-full shadow-md" style={{ backgroundColor: swatches[4], width: '65%' }} />
+                    </div>
+                  )}
+
+                  {/* Motif 4: Kinetic Rotator */}
+                  {graphicMotif === 'kinetic_rotator' && (
+                    <div className="relative w-40 h-40 flex items-center justify-center">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+                        className="w-32 h-32 rounded-3xl border-4 shadow-xl flex items-center justify-center"
+                        style={{ backgroundColor: swatches[2], borderColor: swatches[3] }}
+                      >
+                        <div className="w-16 h-16 rounded-full" style={{ backgroundColor: swatches[0] }} />
+                      </motion.div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom Footer Section */}
+                <div className="relative z-10">
+                  <div
+                    className="h-[1px] w-full mb-4 opacity-30"
+                    style={{ backgroundColor: simulatedPrimary }}
+                  />
+
+                  <div className={`flex flex-col sm:flex-row gap-3 ${
+                    balanceMode === 'symmetrical' ? 'items-center justify-center text-center' : 'items-end justify-between'
+                  }`}>
+                    <div>
+                      <div
+                        className="text-[9px] font-mono tracking-widest uppercase font-bold"
+                        style={{ color: `${simulatedPrimary}99` }}
+                      >
+                        {activeMockupTab === 'ajakan_gabung' ? 'DIVISI MULTIMEDIA' : 'STUDIO DKV'}
+                      </div>
+                      <div
+                        className="text-xs sm:text-sm font-bold tracking-tight"
+                        style={{ color: simulatedSubtitle }}
+                      >
+                        {activeMockupTab === 'ajakan_gabung' ? 'Muslimat Hidayatullah' : 'Galeri Seni Visual'}
+                      </div>
+                    </div>
+
+                    {/* Pill Button in Swatch 3 Color matching image */}
+                    <div className="flex flex-col items-center gap-1">
+                      {hierarchyMode === 'flow' && (
+                        <span className="text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">
+                          4️⃣ Aksi (CTA)
+                        </span>
+                      )}
+                      <button
+                        className="px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm transition hover:brightness-105 active:scale-95"
+                        style={{
+                          backgroundColor: swatches[2],
+                          color: hexToHsl(swatches[2]).l > 60 ? '#1A202C' : '#FFFFFF'
+                        }}
+                      >
+                        {activeMockupTab === 'ajakan_gabung' ? 'Daftar Kajian' : 'Tiket Pameran'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2 (Right): Brand Identity System with 60-30-10 distribution card */}
+              <div
+                className={`rounded-[28px] ${paddingClass} shadow-md border transition-all duration-300 flex flex-col justify-between min-h-[590px] text-white relative overflow-hidden`}
+                style={{
+                  backgroundColor: swatches[0], // Swatch 1 (#B72818)
+                  borderColor: `${swatches[0]}40`
+                }}
+              >
+                {/* Safe Margins Overlay on Right Card */}
+                {showSafeMargins && (
+                  <div className="absolute inset-6 border-2 border-dashed border-white/30 pointer-events-none z-30 rounded-2xl" />
+                )}
+
+                {/* Top Brand Tag */}
+                <div className={`${balanceMode === 'symmetrical' ? 'text-center' : 'text-left'}`}>
+                  <div className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold text-white/80">
+                    BRAND IDENTITY SYSTEM
+                  </div>
+
+                  {/* Big Headline */}
+                  <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-black tracking-tight leading-[1.05] uppercase mt-4 text-white">
+                    {activeMockupTab === 'ajakan_gabung' ? (
+                      <>
+                        <span className="border-b-4 border-white/80 pb-0.5">M</span>USLIMAT MEDIA
+                        <br />
+                        CREATIVE
+                      </>
+                    ) : (
+                      <>
+                        <span className="border-b-4 border-white/80 pb-0.5">Q</span>UEENTHINGS MEDIA
+                        <br />
+                        CREATIVE
+                      </>
+                    )}
+                  </h2>
+
+                  {/* 5 Swatch Chips Row matching screenshot */}
+                  <div className={`flex items-center space-x-2 mt-5 ${balanceMode === 'symmetrical' ? 'justify-center' : ''}`}>
+                    {/* Chip 1 (Hollow/Transparent border) */}
+                    <div
+                      className="w-7 h-7 rounded-lg border-2 border-white/40 shadow-sm"
+                      style={{ backgroundColor: `${swatches[0]}00` }}
+                      title={`Swatch 1: ${swatches[0]}`}
+                    />
+                    {/* Chip 2 */}
+                    <div
+                      className="w-7 h-7 rounded-lg shadow-sm"
+                      style={{ backgroundColor: swatches[1] }}
+                      title={`Swatch 2: ${swatches[1]}`}
+                    />
+                    {/* Chip 3 */}
+                    <div
+                      className="w-7 h-7 rounded-lg shadow-sm"
+                      style={{ backgroundColor: swatches[2] }}
+                      title={`Swatch 3: ${swatches[2]}`}
+                    />
+                    {/* Chip 4 */}
+                    <div
+                      className="w-7 h-7 rounded-lg shadow-sm"
+                      style={{ backgroundColor: swatches[3] }}
+                      title={`Swatch 4: ${swatches[3]}`}
+                    />
+                    {/* Chip 5 */}
+                    <div
+                      className="w-7 h-7 rounded-lg shadow-sm"
+                      style={{ backgroundColor: swatches[4] }}
+                      title={`Swatch 5: ${swatches[4]}`}
+                    />
+                  </div>
+                </div>
+
+                {/* Middle Container: Kaidah Distribusi 60-30-10 matching reference */}
+                <div className="my-auto py-6">
+                  <div className="p-5 rounded-2xl bg-black/25 backdrop-blur-md border border-white/10 space-y-2">
+                    <div className="font-bold text-xs sm:text-sm text-white flex items-center justify-between">
+                      <span>Kaidah Distribusi 60–30–10:</span>
+                      <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded font-mono">Standar Nirmana</span>
+                    </div>
+                    <p className="text-xs text-white/90 leading-relaxed font-light">
+                      Warna primer ({swatches[0]}) membentuk 60% kanvas dasar, warna pendukung ({swatches[2]}) memberikan 30% struktur, dan aksen ({swatches[4]}) memandu 10% fokus mata pemirsa.
+                    </p>
+
+                    {/* Visual Proportional Bar */}
+                    <div className="h-2.5 rounded-full overflow-hidden flex border border-white/20 mt-2">
+                      <div className="w-[60%] h-full" style={{ backgroundColor: swatches[0] }} title="60% Primer" />
+                      <div className="w-[30%] h-full" style={{ backgroundColor: swatches[2] }} title="30% Struktur" />
+                      <div className="w-[10%] h-full" style={{ backgroundColor: swatches[4] }} title="10% Aksen" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Footer Info Line matching screenshot */}
+                <div className={`pt-4 text-[10px] sm:text-[11px] font-mono tracking-widest text-white/80 uppercase ${
+                  balanceMode === 'symmetrical' ? 'text-center' : 'text-left'
+                }`}>
+                  {activeMockupTab === 'ajakan_gabung'
+                    ? 'Muslimat Hidayatullah Kompetensi Keahlian Desain Grafis • 2026/2027'
+                    : 'SMK Negeri Kompetensi Keahlian DKV • 2026/2027'}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </section>
     </div>
   );
